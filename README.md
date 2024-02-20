@@ -1,3 +1,14 @@
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Types](#types)
+  - [Resource Specifier](#resource-specifier)
+  - [Escrow Badge](#escrowbadge)
+- [State](#state)
+- [Interface](#interface)
+- [Submission Guidelines](#submission-guidelines)
+
+
 ## Introduction
 
 This Scrypto package contains a a boilerplate blueprint to assist you with the Escrow Challenge exercise, but you are not required to use it. The boilerplate blueprint contains predefined types and interface for you to help you reason about the necessary logic to facilitate an escrow exchange.
