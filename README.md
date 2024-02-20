@@ -6,6 +6,10 @@
   - [Escrow Badge](#escrowbadge)
 - [State](#state)
 - [Interface](#interface)
+  - [instantiate_escrow](#instantiate_escrow)
+  - [exchange](#exchange)
+  - [withdraw_resource](#withdraw_resource)
+  - [cancel_escrow](#cancel_escrow)
 - [Submission Guidelines](#submission-guidelines)
 
 
@@ -108,16 +112,12 @@ struct Escrow {
 | `requested_resource_vault` | `Vault` | The `requested_resource_vault` is a field that will contain the resource offered by the other party. When the other party sends the resource requested by the instantiatior, the resource will be contained in the `Vault` value.
 | `escrow_nft` | `ResourceAddress` | The `escrow_nft` is a field that will allow the component to know the identifier address of the `EscrowBadge` nft. At instantiation, the instantiator will receive this minted NFT to allow them to 
 
-
-
-
-
-
-
 ## Interface
 
 The boilerplate blueprint defines the following interface for its instantiated component:
 
+
+### instantiate_escrow
 | Name            | Type            | Arguments       | Description  
 | --------------- | --------------- | ----------------- | --------------- |
 | `instantiate_escrow` | Function | `requested_resource`<br>`offered_resource` | An instantiation function which will create a component from the `Escrow` blueprint. The function takes two arguments which will determine the instantiator's requested resource and the offered resource in the exchange. The function will return a `Global<Escrow>` and `NonFungibleBucket` which represents that instantiated component and the instantiator's `EscrowBadge` NFT.
@@ -133,6 +133,7 @@ pub fn instantiate_escrow(
 }
 ```
 
+### exchange
 | Name            | Type            | Arguments       | Description  
 | --------------- | --------------- | ----------------- | --------------- |
 | `exchange` | Method | `bucket_of_resource` | A method that faciliates the escrow exchange. The other party will send their part of the deal (the requested resource) and returns a `Bucket` containing the offered resource.
@@ -145,6 +146,7 @@ pub fn exchange(&mut self, bucket_of_resource: Bucket) -> Bucket {
 }
 ```
 
+### withdraw_resource
 | Name            | Type            | Arguments       | Description  
 | --------------- | --------------- | ----------------- | --------------- |
 | `withdraw_resource` | Method | `escrow_nft` | A method that will allow the instantiator to withdraw the requested resource. The `EscrowBadge` NFT needs to be sent to the component to verify that the caller is the person that is allowed to redeem the requested resource. Once verified, the method will return a `Bucket` of the requested resource.
@@ -157,6 +159,7 @@ pub fn withdraw_resource(&mut self, escrow_nft: NonFungibleBucket) -> Bucket {
 }
 ```
 
+### cancel_escrow
 | Name            | Type            | Arguments       | Description  
 | --------------- | --------------- | ----------------- | --------------- |
 | `cancel_escrow` | Method | `escrow_nft` | A method that closes the escrow if the other party has rejected the exchange. The `EscrowBadge` NFT needs to be sent to the component to verify the caller is the person allowed to close the escrow and withdraw the offered resource. Once verified, the method will reutnr a `Bucket` of the offered resource. Once the escrow is cancelled, the other party or anyone else cannot be allowed to deposit the requested resource to the component.
