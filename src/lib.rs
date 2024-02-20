@@ -1,38 +1,5 @@
 use scrypto::prelude::*;
 
-
-
-#[derive(ScryptoSbor, Clone)]
-pub enum ResourceSpecifier {
-    Fungible {
-        resource_address: ResourceAddress,
-        amount: Decimal
-    },
-    NonFungible {
-        resource_address: ResourceAddress,
-        non_fungible_local_id: NonFungibleLocalId
-    }
-}
-
-impl ResourceSpecifier {
-
-    pub fn get_resource_address(&self) -> ResourceAddress {
-        match self {
-            Self::Fungible {
-                resource_address, ..
-            }
-            | Self::NonFungible {
-                resource_address, ..
-            } => *resource_address,
-        }
-    }
-}
-
-#[derive(ScryptoSbor, NonFungibleData)]
-pub struct EscrowBadge {
-    offered_resource: ResourceAddress
-}
-
 #[blueprint]
 mod escrow {
     struct Escrow {
@@ -70,4 +37,39 @@ mod escrow {
 
         }
     }
+}
+
+
+
+// Types //
+
+#[derive(ScryptoSbor, Clone)]
+pub enum ResourceSpecifier {
+    Fungible {
+        resource_address: ResourceAddress,
+        amount: Decimal
+    },
+    NonFungible {
+        resource_address: ResourceAddress,
+        non_fungible_local_id: NonFungibleLocalId
+    }
+}
+
+impl ResourceSpecifier {
+
+    pub fn get_resource_address(&self) -> ResourceAddress {
+        match self {
+            Self::Fungible {
+                resource_address, ..
+            }
+            | Self::NonFungible {
+                resource_address, ..
+            } => *resource_address,
+        }
+    }
+}
+
+#[derive(ScryptoSbor, NonFungibleData)]
+pub struct EscrowBadge {
+    offered_resource: ResourceAddress
 }
