@@ -15,25 +15,25 @@ mod escrow {
             requested_resource: ResourceSpecifier,
             offered_resource: Bucket
         ) -> (Global<Escrow>, NonFungibleBucket) {
-
-            to_do!();
+            
+            todo!();
 
         }
 
         pub fn exchange(&mut self, bucket_of_resource: Bucket) -> Bucket {
 
-            to_do!();
+            todo!();
         }
 
         pub fn withdraw_resource(&mut self, escrow_nft: NonFungibleBucket) -> Bucket {
 
-            to_do!();
+            todo!();
 
         }
 
         pub fn cancel_escrow(&mut self, escrow_nft: NonFungibleBucket) -> Bucket {
 
-            to_do!();
+            todo!();
 
         }
     }

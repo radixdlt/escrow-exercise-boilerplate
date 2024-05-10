@@ -172,18 +172,12 @@ pub fn cancel_escrow(&mut self, escrow_nft: NonFungibleBucket) -> Bucket {
 }
 ```
 
-## Submission Guidelines
+## Submission 
 
+To submit your exercise:
 
-A submission is considered complete if it fulfills the following requirements:
+1. Run `scrypto build` while in your project directory. You should have a `.rpd` and `.wasm` file in your `/target/wasm32-unknown-unknown/release` folder.
+2. Deploy your package on [Stokenet](https://stokenet-console.radixdlt.com/deploy-package)
+3. Fill out the submission form on [LearnWorlds](https://academy.radixdlt.com/path-player?courseid=scrypto101&unit=663e315c23537a334304e8aeUnit)
 
-1. Complete blueprint
-
-Your submission should have a completed blueprint - meaning that it compiles successfuly when running `resim publish`.
-
-2. Complete documentation
-
-Your submission should be able to walkthrough the details of your blueprint in a manner similar (if not better) than the provided documentation here. The documentation should also provide a detailed walkthrough of the escrow flow. You may (but not required to) produce a script which autonomously runs through the flow so long as you provide an explanation for each steps of the script.
-
-
-
+If you have any questions, feel free to head over to the `#scrypto-rust-beginners` channel on [Discord](https://discord.com/channels/417762285172555786/936736798342803528)!
