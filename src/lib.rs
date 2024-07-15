@@ -3,7 +3,7 @@ use scrypto::prelude::*;
 #[blueprint]
 mod escrow {
     struct Escrow {
-        requested_resource: ResourceSpecifier,
+        requested_resource: EscrowResourceSpecifier,
         offered_resource: Vault,
         requested_resource_vault: Vault,
         escrow_nft: ResourceAddress,
@@ -12,7 +12,7 @@ mod escrow {
     impl Escrow {
 
         pub fn instantiate_escrow(
-            requested_resource: ResourceSpecifier,
+            requested_resource: EscrowResourceSpecifier,
             offered_resource: Bucket
         ) -> (Global<Escrow>, NonFungibleBucket) {
             
@@ -44,7 +44,7 @@ mod escrow {
 // Types //
 
 #[derive(ScryptoSbor, Clone)]
-pub enum ResourceSpecifier {
+pub enum EscrowResourceSpecifier {
     Fungible {
         resource_address: ResourceAddress,
         amount: Decimal
@@ -55,7 +55,7 @@ pub enum ResourceSpecifier {
     }
 }
 
-impl ResourceSpecifier {
+impl EscrowResourceSpecifier {
 
     pub fn get_resource_address(&self) -> ResourceAddress {
         match self {
