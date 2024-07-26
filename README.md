@@ -23,16 +23,16 @@ Please read the documentation below to help you understand how to best use the b
 
 ### Resource Specifier
 
-We define a `ResourceSpecifier` enum that can be either `Fungible` or `NonFungible`. We use an enum to represent the different types of 
+We define a `EscrowResourceSpecifier` enum that can be either `Fungible` or `NonFungible`. We use an enum to represent the different types of 
 resources that can be used in the escrow. For example, when we instantiate the Escrow Blueprint, we will request from the user what resource
 they want to request from the other party. Because we are using an enum type, we are able to handle both types of resource (fungibles and non-fungible) 
 the user may specify.
 
-The `ResourceSpecifier` type implements a method called `get_resource_address`. We do this so it's easier to retrieve the value of the `ResourceAddress` whether it comes from the `Fungible` or `NonFungible` variant. 
+The `EscrowResourceSpecifier` type implements a method called `get_resource_address`. We do this so it's easier to retrieve the value of the `ResourceAddress` whether it comes from the `Fungible` or `NonFungible` variant. 
 
 ```rust
 #[derive(ScryptoSbor, Clone)]
-pub enum ResourceSpecifier {
+pub enum EscrowResourceSpecifier {
     Fungible {
         resource_address: ResourceAddress,
         amount: Decimal
@@ -43,7 +43,7 @@ pub enum ResourceSpecifier {
     }
 }
 
-impl ResourceSpecifier {
+impl EscrowResourceSpecifier {
 
     pub fn get_resource_address(&self) -> ResourceAddress {
         match self {
@@ -62,7 +62,7 @@ Example use:
 
 ```rust
 
-pub fn verify_requested_resource(&self, requested_resource: ResourceSpecifier) {
+pub fn verify_requested_resource(&self, requested_resource: EscrowResourceSpecifier) {
 
     let requested_resource: ResourceAddress = requested_resource.get_resource_address();
 
@@ -98,7 +98,7 @@ The `Escrow` blueprint contains 4 state defined in its `Struct` to record inform
 
 ```rust
 struct Escrow {
-    requested_resource: ResourceSpecifier,
+    requested_resource: EscrowResourceSpecifier,
     offered_resource: Vault,
     requested_resource_vault: Vault,
     escrow_nft: ResourceAddress,
@@ -107,7 +107,7 @@ struct Escrow {
 
 | Field | Type  | Description |
 | ----- | ----- | ----------- |
-| `requested_resource` | `ResourceSpecifier` |  The `requested_resource` is a field which is meant to capture the instantiator's requested resource in the exchange. The instantiatior will be requested what resource they would like for the resource they will offer to the other party. The `ResourceSpecifier` is the value that will capture the instatiator's request to allow flexibility for if the instantiator prefers a `Fungible` or `NonFungible` resource.
+| `requested_resource` | `EscrowResourceSpecifier` |  The `requested_resource` is a field which is meant to capture the instantiator's requested resource in the exchange. The instantiatior will be requested what resource they would like for the resource they will offer to the other party. The `EscrowResourceSpecifier` is the value that will capture the instatiator's request to allow flexibility for if the instantiator prefers a `Fungible` or `NonFungible` resource.
 | `offered_resource` | `Vault` | The `offered_resource` is a field that will contain the resource the instantiator is offering to the other party as part of the exchange. At instantiation, the instantiator is required to send their offered resource to the escrow component as part of their end of the deal and will be contained in the `Vault` value.
 | `requested_resource_vault` | `Vault` | The `requested_resource_vault` is a field that will contain the resource offered by the other party. When the other party sends the resource requested by the instantiatior, the resource will be contained in the `Vault` value.
 | `escrow_nft` | `ResourceAddress` | The `escrow_nft` is a field that will allow the component to know the identifier address of the `EscrowBadge` nft. At instantiation, the instantiator will receive this minted NFT to allow them to 
@@ -124,7 +124,7 @@ The boilerplate blueprint defines the following interface for its instantiated c
 
 ```rust
 pub fn instantiate_escrow(
-    requested_resource: ResourceSpecifier,
+    requested_resource: EscrowResourceSpecifier,
     offered_resource: Bucket
 ) -> (Global<Escrow>, NonFungibleBucket) {
 
