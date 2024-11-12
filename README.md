@@ -10,7 +10,7 @@
   - [exchange](#exchange)
   - [withdraw_resource](#withdraw_resource)
   - [cancel_escrow](#cancel_escrow)
-- [Submission Guidelines](#submission-guidelines)
+- [Challenge Assistance](#challenge-assistance)
 
 
 ## Introduction
@@ -171,13 +171,6 @@ pub fn cancel_escrow(&mut self, escrow_nft: NonFungibleBucket) -> Bucket {
 
 }
 ```
-
-## Submission 
-
-To submit your exercise:
-
-1. Run `scrypto build` while in your project directory. You should have a `.rpd` and `.wasm` file in your `/target/wasm32-unknown-unknown/release` folder.
-2. Deploy your package on [Stokenet](https://stokenet-console.radixdlt.com/deploy-package)
-3. Fill out the submission form on [LearnWorlds](https://academy.radixdlt.com/path-player?courseid=scrypto101&unit=663e315c23537a334304e8aeUnit)
+## Challenge Assistance
 
 If you have any questions, feel free to head over to the `#scrypto-rust-beginners` channel on [Discord](https://discord.com/channels/417762285172555786/936736798342803528)!
